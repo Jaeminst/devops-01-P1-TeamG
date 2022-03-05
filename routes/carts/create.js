@@ -1,13 +1,19 @@
 'use strict'
 
-module.exports = async function (fastify, opts) {
-  fastify.get('/', async function (request, reply) {
+const {createCart} = require('../../model')
 
-  return reply
+module.exports = async function (fastify, opts) {
+  fastify.post('/', async function (request, reply) {
+ 
+    const newCart = request.body  
+    const result = await createCart(this.mongo, newCart )
+    const CartId = result.insertedId
+    
+   //console.log("+++++++++++++이거 확인+++++++++++", resault.insertedId) 
+    
+  reply
   .code(200)
   .header('Content-Type', 'application/json')
-  .send({ "carts": { 
-    "id": "sjkfjlsjf3lkjfkl3jfkl"}
-    });
-  })
+  .send({CartId : CartId}) 
+    })
 }
