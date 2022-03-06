@@ -12,7 +12,7 @@ module.exports = async function (fastify, opts) {
     //console.log("+++++++++++++이거 확인+++++++++++", resault.insertedId) 
     
     reply
-    .code(200)
+    .code(201)
     .header('Content-Type', 'application/json')
     .send({ CartId: CartId })
   })

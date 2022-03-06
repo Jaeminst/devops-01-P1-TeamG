@@ -61,6 +61,14 @@ module.exports = {
     return result
   },
 
+  createOrder: async (mongo, body) => {
+    const collection = mongo.db.collection('orders')
+
+    const result = await collection.insertOne(body)
+    return result
+  },
+
+
   updateOne: async (mongo, id, body) => {
     const collection = mongo.db.collection(process.env.COLLECTION_NAME)
 
@@ -81,7 +89,7 @@ module.exports = {
       $set:body
     })
     return result
-  }, 
+  },
   
 
   deleteOne: async (mongo, id) => {
