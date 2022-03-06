@@ -7,11 +7,28 @@ const {readProduct} = require('../../model')
 module.exports = async function (fastify, opts) {
   fastify.delete('/', async function (request, reply) {
     const deleteCartId = request.body.cartId
-    const deleteCartInfo = await readCart (this.mongo, deleteCartId) 
-    const readProductInfo = await readProduct (this.mongo, deleteCartInfo.productId)
+    const deleteCartInfo = await readCart(this.mongo, deleteCartId) 
+    const readProductInfo = await readProduct(this.mongo, deleteCartInfo.productId)
     const deleteSingleCart = await deleteCart(this.mongo, deleteCartId) 
-    
-    //console.log("++++++++++++++이거++++++", readProductInfo) 
+    const result = { 
+      // cartId: deleteCartId,
+      userId: deleteCartInfo.userId,
+      product: readProductInfo,
+      qty: deleteCartInfo.qty
+    }
+
+
+    // console.log("++++++++++++++이거++++++++++++++\n")
+    // console.log({ cartId: deleteCartId,
+    //   userId: deleteCartInfo.userId,
+    //   product: readProductInfo,
+    //   qty: deleteCartInfo.qty
+    //  })
+    // console.log({ userId: deleteCartInfo.userId })
+    // console.log({ product: readProductInfo })
+    // console.log({ qty: deleteCartInfo.qty })
+    // console.log("--------------------------------\n")
+
     
     
   // [
@@ -31,6 +48,6 @@ module.exports = async function (fastify, opts) {
    reply
   .code(200)
   .header('Content-Type', 'application/json')
-  .send(deleteCartInfo)
+  .send(result)
   })
 }

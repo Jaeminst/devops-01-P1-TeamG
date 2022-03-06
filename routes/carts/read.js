@@ -6,6 +6,9 @@ module.exports = async function (fastify, opts) {
   fastify.get('/', async function (request, reply) {
 
     const result = await readCarts(this.mongo) 
+    console.log("++++++++++++++ request ++++++++++++++\n")
+    console.log(request)
+    console.log("-------------------------------------\n")
 
 //  [
 //     {

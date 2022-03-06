@@ -10,8 +10,10 @@ module.exports = {
   readCarts: async (mongo) => {
     const collection = mongo.db.collection('carts')
     const result = await collection.find({}).toArray()
+    // console.log ("++++++++++++++여기 보자 ++++++++++++\n", mongo.db)
+    // console.log ("++++++++++++++여기 보자 ++++++++++++\n", collection)
     const testCollection = mongo.db.collection('products')
-    console.log ("++++++++++++++여기 보자 ++++++++++++", testCollection)
+    // console.log ("++++++++++++++여기 보자 ++++++++++++\n", testCollection)
     return result
   },
 
@@ -49,7 +51,6 @@ module.exports = {
 
   createCart: async (mongo, body) => {
     const collection = mongo.db.collection('carts')
-    console.log( "+++++++++이거확인+++++++", collection)
     const result = await collection.insertOne(body)
     return result
   },
