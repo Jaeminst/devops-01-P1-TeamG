@@ -47,6 +47,20 @@ module.exports = {
     return result
   },
 
+  readOrders: async (mongo) => {
+    const collection = mongo.db.collection('orders')
+    const result = await collection.find({}).toArray()
+    return result
+  },
+
+  readOrder : async (mongo, id) => {
+    const collection = mongo.db.collection('orders')
+    const result = await collection.findOne({
+      _id: ObjectId(id)
+    })
+    return result
+  },
+
 
   createOne: async (mongo, body) => {
     const collection = mongo.db.collection(process.env.COLLECTION_NAME)
