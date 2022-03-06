@@ -14,11 +14,12 @@ module.exports = async function (fastify, opts) {
 
   })
 
-  fastify.get('/:id', async function (request, reply) {
-      console.log("++++++++++++++이거++++++++++++++\n")
-      console.log(requst)
-      console.log("--------------------------------\n")
-      // const result = await readProduct(this.mongo, requst.params.id)
+  fastify.get('/:_id', async function (request, reply) {
+    //   const testresult = request.params._id
+    //   console.log("++++++++++++++이거++++++++++++++\n")
+    //   console.log(testresult)
+    //   console.log("--------------------------------\n")
+      const result = await readProduct(this.mongo, request.params._id)
 
       reply
       .code(200)
