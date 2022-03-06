@@ -44,10 +44,10 @@ module.exports = async function (fastify, opts) {
   //     }]
   //   }
   // ]
-
-   reply
-  .code(200)
-  .header('Content-Type', 'application/json')
-  .send(result)
+    // if (result != )
+    reply
+    .code(200)
+    .header('Content-Type', 'application/json')
+    .send(result)
   })
 }

@@ -33,6 +33,12 @@ module.exports = {
     return result
   },
 
+  readProducts: async (mongo) => {
+    const collection = mongo.db.collection('products')
+    const result = await collection.find({}).toArray()
+    return result
+  },
+
   readProduct : async (mongo, id) => {
     const collection = mongo.db.collection('products')
     const result = await collection.findOne({
