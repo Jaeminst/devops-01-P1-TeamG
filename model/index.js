@@ -7,12 +7,14 @@ module.exports = {
     return result
   },
 
-  readCarts: async (mongo) => {
+  readCarts: async (mongo, id) => {
     const collection = mongo.db.collection('carts')
-    const result = await collection.find({}).toArray()
+    const result = await collection.find({
+      userId: id
+    }).toArray()
     // console.log ("++++++++++++++여기 보자 ++++++++++++\n", mongo.db)
     // console.log ("++++++++++++++여기 보자 ++++++++++++\n", collection)
-    const testCollection = mongo.db.collection('products')
+    // const testCollection = mongo.db.collection('products')
     // console.log ("++++++++++++++여기 보자 ++++++++++++\n", testCollection)
     return result
   },

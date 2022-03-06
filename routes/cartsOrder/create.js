@@ -15,30 +15,52 @@ module.exports = async function (fastify, opts) {
     // const reqSummary = readProductsInfo.name
     // const orderProducts = []
     const arryProducts = reqOrder.carts
-    // const arryProductsId = ''
-    // const arryProductsQty = ''
-    // const arryProductsInfo = ''
-    for (let i = 0; i <= products.length; i++) {
-      const arryProductsId = arryProducts[i]
-      // arryproductID.push(arryProductsId.productId)
+    const arryProductId = []
+    let totalAmount = 0
+    let reqSummary = ''
+    let startSummary = 0
+    let lastSummary = arryProducts.length - 1
+    for (let i = 0; i < arryProducts.length; i++) {
+      const arryProductsIds = arryProducts[i]
+      const arryProductsId = arryProductsIds.productId
+      const arryProductsQtys = arryProducts[i]
+      const arryProductsQty = arryProductsQtys.qty
+      const readProductsInfo = await readProduct(this.mongo, arryProductsId)
+      if ( i < 3 ) {
+        reqSummary += `${readProductsInfo.name}, `
+      } else {
+        startSummary++
+      }
+      if ( i === lastSummary ){
+        reqSummary += `외 ${startSummary}`
+      }
+      console.log(readProductsInfo.price)
+      const productPrice = readProductsInfo.price
+      const amount = arryProductsQty * productPrice
+      totalAmount += amount
+      const pushProductInfo = {
+        productId: arryProductsId,
+        qty: arryProductsQty
+      }
+      arryProductId.push(pushProductInfo)
 
-      console.log(arryProductsId)
-      const arryProductsQty = arryProducts[i]
-      // arryproductQty.push(arryProductsQty.qty)
-      arryProductsInfo.push(arryProductsId)
+      // arryProductQty.push(arryProductsQty.qty)
+      // arryProductsInfo.push(arryProductsId)
       // pushProductInfo = reqOrder.carts[i].productId, reqOrder.carts[i].qty
       // orderProducts.push(arryProductsId)
     }
+    // console.log(arryProductId)
+    
+
     // const testee = reqOrder.carts
     // console.log(arryProductsInfo)
     
-    // const newOrder = {
-    //   userId: reqOrder.userId,
-    //   products: fjkldjlk<배열로 샬라샬라
-    //   reqOrder.productId,
-    //   orderSummary: reqSummary,
-    //   totalAmount: totalAmount
-    // }
+    const newOrder = {
+      userId: reqOrder.userId,
+      products: arryProductId,
+      orderSummary: reqSummary,
+      totalAmount: totalAmount
+    }
     
     // reqOrder = {
     //   "userId": 'rjewkljfklw'
@@ -81,14 +103,14 @@ module.exports = async function (fastify, opts) {
       // orderSummary: 'gold_ring, silver_ring, bronze_ring',
       // totalAmount: 65000
 
-    // const result = await createOrder(this.mongo, newOrder)
-    // const orderId = result.insertedId
+    const result = await createOrder(this.mongo, newOrder)
+    const orderId = result.insertedId
     
     
     
     reply
     .code(201)
     .header('Content-Type', 'application/json')
-    .send(/* { orderId: orderId } */)
+    .send({ orderId: orderId })
   })
 }
