@@ -9,11 +9,11 @@ module.exports = async function (fastify, opts) {
     const result = await createCart(this.mongo, newCart )
     const CartId = result.insertedId
     
-   //console.log("+++++++++++++이거 확인+++++++++++", resault.insertedId) 
+    //console.log("+++++++++++++이거 확인+++++++++++", resault.insertedId) 
     
-  reply
-  .code(200)
-  .header('Content-Type', 'application/json')
-  .send({CartId : CartId}) 
-    })
+    reply
+    .code(201)
+    .header('Content-Type', 'application/json')
+    .send({ CartId: CartId })
+  })
 }

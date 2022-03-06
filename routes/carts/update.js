@@ -10,11 +10,11 @@ module.exports = async function (fastify, opts) {
 
     const result = await changeQty(this.mongo, request.body.cartId, updateCartQty) 
     
-    console.log("++++++++++++++이거++++++++++++++\n")
+    // console.log("++++++++++++++이거++++++++++++++\n")
     // console.log( updateCartId ) 
     // console.log( updateCartQty )
-    console.log({ result })
-    console.log("--------------------------------\n")
+    // console.log({ result })
+    // console.log("--------------------------------\n")
 
     // const result = await changeQty(this.mongo, updateCartId, updateCartQty) 
 
