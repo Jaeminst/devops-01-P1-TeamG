@@ -50,7 +50,7 @@ ___
 ## ERD
 ![](https://images.velog.io/images/jm1225/post/f9ce58d7-4d45-467c-851d-a83d11796ee2/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7,%202022-03-05%2019-49-43.png)
 
-
+## [API Doc. is here](https://github.com/cs-devops-bootcamp/devops-01-P1-TeamG/blob/main/API.md)
 
 # Getting Started with Fastify-CLI [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
 This project was bootstrapped with Fastify-CLI.
