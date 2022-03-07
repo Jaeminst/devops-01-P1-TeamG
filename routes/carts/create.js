@@ -10,6 +10,14 @@ module.exports = async function (fastify, opts) {
     const CartId = result.insertedId
     
     //console.log("+++++++++++++이거 확인+++++++++++", resault.insertedId) 
+    if (!CartId) {
+      return reply
+      .code(404)
+      .header('Content-Type', 'application/json')
+      .send({ 
+        Error: "Not Found"
+       })
+    }
     
     reply
     .code(201)

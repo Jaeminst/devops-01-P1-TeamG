@@ -25,6 +25,13 @@ module.exports = async function (fastify, opts) {
       var authorUserId = '62231cb5a5173f4665a52687'
     } //백다물
 
+    if (!authorUserId) {
+      return reply
+      .code(401)
+      .header('Content-Type', 'application/json')
+      .send({ Error: "사용자 인증에 실패하였습니다." })
+    }
+
     // var testauth = { authorization: request.raw.rawHeaders[1] }
     const result = await readCarts(this.mongo, authorUserId)
     // console.log("++++++++++++++ request ++++++++++++++\n")

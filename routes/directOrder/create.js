@@ -24,6 +24,14 @@ module.exports = async function (fastify, opts) {
     const orderId = result.insertedId
     
     
+    if (!orderId) {
+      return reply
+      .code(404)
+      .header('Content-Type', 'application/json')
+      .send({
+        Error: "Not Found"
+      })
+    }
     
     reply
     .code(201)

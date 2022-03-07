@@ -14,42 +14,42 @@ module.exports = async function (fastify, opts) {
     // const totalAmount = orderQty * productsPrice
     // const reqSummary = readProductsInfo.name
     // const orderProducts = []
-    const arryProducts = reqOrder.carts
-    const arryProductId = []
+    const arrayProducts = reqOrder.carts
+    const arrayProductId = []
     let totalAmount = 0
     let reqSummary = ''
     let startSummary = 0
-    let lastSummary = arryProducts.length - 1
-    for (let i = 0; i < arryProducts.length; i++) {
-      const arryProductsIds = arryProducts[i]
-      const arryProductsId = arryProductsIds.productId
-      const arryProductsQtys = arryProducts[i]
-      const arryProductsQty = arryProductsQtys.qty
-      const readProductsInfo = await readProduct(this.mongo, arryProductsId)
+    let lastSummary = arrayProducts.length - 1
+    for (let i = 0; i < arrayProducts.length; i++) {
+      const arrayProductsIds = arrayProducts[i]
+      const arrayProductsId = arrayProductsIds.productId
+      const arrayProductsQtys = arrayProducts[i]
+      const arrayProductsQty = arrayProductsQtys.qty
+      const readProductsInfo = await readProduct(this.mongo, arrayProductsId)
       if ( i < 3 ) {
         reqSummary += `${readProductsInfo.name}, `
       } else {
         startSummary++
-      }
-      if ( i === lastSummary ){
-        reqSummary += `외 ${startSummary}`
+        if ( i === lastSummary ){
+          reqSummary += `외 ${startSummary}`
+        }
       }
       console.log(readProductsInfo.price)
       const productPrice = readProductsInfo.price
-      const amount = arryProductsQty * productPrice
+      const amount = arrayProductsQty * productPrice
       totalAmount += amount
       const pushProductInfo = {
-        productId: arryProductsId,
-        qty: arryProductsQty
+        productId: arrayProductsId,
+        qty: arrayProductsQty
       }
-      arryProductId.push(pushProductInfo)
+      arrayProductId.push(pushProductInfo)
 
-      // arryProductQty.push(arryProductsQty.qty)
-      // arryProductsInfo.push(arryProductsId)
+      // arryProductQty.push(arrayProductsQty.qty)
+      // arryProductsInfo.push(arrayProductsId)
       // pushProductInfo = reqOrder.carts[i].productId, reqOrder.carts[i].qty
-      // orderProducts.push(arryProductsId)
+      // orderProducts.push(arrayProductsId)
     }
-    // console.log(arryProductId)
+    // console.log(arrayProductId)
     
 
     // const testee = reqOrder.carts
@@ -57,7 +57,7 @@ module.exports = async function (fastify, opts) {
     
     const newOrder = {
       userId: reqOrder.userId,
-      products: arryProductId,
+      products: arrayProductId,
       orderSummary: reqSummary,
       totalAmount: totalAmount
     }
@@ -107,6 +107,14 @@ module.exports = async function (fastify, opts) {
     const orderId = result.insertedId
     
     
+    if (!orderId) {
+      return reply
+      .code(404)
+      .header('Content-Type', 'application/json')
+      .send({
+        Error: "Not Found"
+      })
+    }
     
     reply
     .code(201)

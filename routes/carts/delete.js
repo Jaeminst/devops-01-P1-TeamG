@@ -45,6 +45,17 @@ module.exports = async function (fastify, opts) {
   //   }
   // ]
     // if (result != )
+
+    if (!readProductInfo) {
+      return reply
+      .code(404)
+      .header('Content-Type', 'application/json')
+      .send({ 
+        product: null,
+        ok: 1
+      })
+    }
+
     reply
     .code(200)
     .header('Content-Type', 'application/json')
